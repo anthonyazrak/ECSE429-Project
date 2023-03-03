@@ -2,7 +2,7 @@ Feature: Assign a class to a category
 
     As a student
     I want to assign each of my classes to a category
-    so that I can keep track of all my classes
+    So that I can keep track of all my classes
 
     Background:
         Given the server is running
