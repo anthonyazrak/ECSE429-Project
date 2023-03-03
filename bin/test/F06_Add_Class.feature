@@ -20,18 +20,18 @@ Feature: Assign a class to a category
 
     Scenario Outline: Delete a category and then create a category (Alternate Flow)
         Given the following category exists in the system
-            | id  | title    | description |
-            | 100 | ECSE XXX | XXXXXXX     |
-        When a student deletes a category with id 100
-        And creates a category with title "<title>" and description "<description>"
-        Then a category with the title "<title>" and description "<description>" will be added
+            | title    | description |
+            | ECSE XXX | XXXXXXX     |
+        When a student deletes a category with id of the existing category
+        And a student adds a category with a title "<title>" and a description "<description>"
+        Then a category with title "<title>" and description "<description>" will be added
 
         Examples:
             | title    | description                   |
             | ECSE 211 | Design Principles and Methods |
 
     Scenario Outline: Create a category empty title (Error Flow)
-        When a student creates a category with empty title "<title>" and description "<description>"
+        When a student adds a category with a title "<title>" and a description "<description>"
         Then the student will get notified by an error message
         And the response status code will be 400
 
