@@ -13,7 +13,7 @@ Feature: Remove an assignment
       | 102 | "A3"  | false    | true   | "Assignment 3" |
 
 
-  Scenario Outline: Remove a project with valid input (Normal Flow)
+  Scenario Outline: Remove a project representing an assignment with valid input (Normal Flow)
 
     When a student removes a project with id "<id>"
     Then a project with id "<id>" is removed
