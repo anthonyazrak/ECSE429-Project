@@ -13,10 +13,9 @@ import io.cucumber.java.en.When;
 
 public class F12_remove_assignment {
   private static final String BASE_URL = "http://localhost:4567/";
-  private HttpResponse<String> response;
 
-  @Then("a project with id {string} is removed")
-  public void thenRemoveProject(String id) throws Exception {
+  @Then("a project with id is removed")
+  public void thenRemoveProject() throws Exception {
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(BASE_URL + String.format("projects/%s", AssignmentCommonStepDefinitions.getGivenId())))
@@ -39,8 +38,9 @@ public class F12_remove_assignment {
         .DELETE()
         .build();
 
-    response = client.send(request, BodyHandlers.ofString());
+    HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
     assertEquals(response.statusCode(), 404);
+    AssignmentCommonStepDefinitions.setResponse(response);
 
   }
 }

@@ -25,10 +25,10 @@ Feature: Remove an assignment
 
     When a student adds a project with a title "<title>", a complete "<complete>", an active "<active>", and a description "<description>"
     And they remove a project with id "<id>"
-    Then a project with id "<id>" is removed
+    Then a project with id is removed
 
     Examples:
-      | id | title | complete | active | description |
+      | title | complete | active | description |
 
 
   Scenario Outline: Remove a project with invalid id (Error Flow)

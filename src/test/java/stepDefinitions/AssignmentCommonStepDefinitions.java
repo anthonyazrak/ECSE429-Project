@@ -26,15 +26,24 @@ public class AssignmentCommonStepDefinitions {
   private static final String BASE_URL = "http://localhost:4567/";
 
   private static int givenId = 0;
+  private static HttpResponse<String> response;
 
   public static int getGivenId() {
     return givenId;
   }
 
+  public static void setResponse(HttpResponse<String> newResponse) {
+    response = newResponse;
+  }
+
+  public static HttpResponse<String> getResponse() {
+    return response;
+  }
+
   @When("a student adds a project with a title {string}, a complete {string}, an active {string}, and a description {string}")
   public void whenAddProject(String title,
       String complete, String active, String description) throws Exception {
-    HttpRequest.newBuilder()
+    HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(BASE_URL + "projects"))
         .header("Content-Type", "application/json")
         .POST(HttpRequest.BodyPublishers.ofString(
@@ -42,6 +51,12 @@ public class AssignmentCommonStepDefinitions {
                 + "\", \"completed\": " + complete + ", \"active\": " + active
                 + ", \"description\": \"" + description + "\"}"))
         .build();
+
+    HttpClient client = HttpClient.newHttpClient();
+    HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+    ObjectMapper objectMapper = new ObjectMapper();
+    JsonNode jsonNode = objectMapper.readTree(response.body());
+    givenId = jsonNode.get("id").asInt();
 
   }
 
@@ -71,4 +86,10 @@ public class AssignmentCommonStepDefinitions {
     }
 
   }
+
+  @Then("the student will get notified by an error message")
+  public void thenErrorMessage() throws Exception {
+    assertNotNull(response.body());
+  }
+
 }

@@ -6,7 +6,7 @@ Feature: Update an assignment complete status
 
   Background:
     Given the server is running
-    And the following projects exist in the system:
+    And the following project exists in the system:
       | id  | title | complete | active | description  |
       | 100 | A1    | false    | true   | Assignment 1 |
       | 101 | A2    | false    | true   | Assignment 2 |

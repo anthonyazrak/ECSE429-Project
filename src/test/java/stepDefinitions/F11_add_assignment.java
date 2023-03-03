@@ -16,7 +16,6 @@ import io.cucumber.java.en.When;
 public class F11_add_assignment {
 
   private static final String BASE_URL = "http://localhost:4567/";
-  private HttpResponse<String> response;
 
   // Normal flow
 
@@ -45,8 +44,8 @@ public class F11_add_assignment {
 
   // Given in AssignmentCommonStepDefinitions.java:
 
-  @When("a student removes a project with id {string}")
-  public void whenRemoveProject(String id) throws Exception {
+  @When("a student removes a project with id")
+  public void whenRemoveProject() throws Exception {
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(BASE_URL + String.format("projects/%s", AssignmentCommonStepDefinitions.getGivenId())))
@@ -77,9 +76,9 @@ public class F11_add_assignment {
                 + ", \"description\": \"" + description + "\"}"))
         .build();
 
-    response = client.send(request, BodyHandlers.ofString());
+    HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
     assertEquals(response.statusCode(), 400);
-
+    AssignmentCommonStepDefinitions.setResponse(response);
   }
 
   @Then("the project will not be added")
@@ -94,11 +93,6 @@ public class F11_add_assignment {
     HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
     assertFalse(response.body().contains("G5"));
 
-  }
-
-  @Then("the student will get notified by an error message")
-  public void thenErrorMessage() throws Exception {
-    assertNotNull(response.body());
   }
 
 }

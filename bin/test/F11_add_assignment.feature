@@ -24,7 +24,7 @@ Feature: Assign an assignment to a project
       | title | complete | active | description  |
       | A1    | false    | true   | Assignment 1 |
 
-    When a student removes a project with id "<id>"
+    When a student removes a project with id
     And a student adds a project with a title "<title>", a complete "<complete>", an active "<active>", and a description "<description>"
     Then a project with a title "<title>", a complete "<complete>", an active "<active>", and a description "<description>" is added
 
