@@ -7,10 +7,10 @@ Feature: Update an assignment description
   Background:
     Given the server is running
     And the following projects exist in the system:
-      | id  | title | complete | active | description    |
-      | 100 | "A1"  | false    | true   | "Assignment 1" |
-      | 101 | "A2"  | false    | true   | "Assignment 2" |
-      | 102 | "A3"  | false    | true   | "Assignment 3" |
+      | id  | title | complete | active | description  |
+      | 100 | A1    | false    | true   | Assignment 1 |
+      | 101 | A2    | false    | true   | Assignment 2 |
+      | 102 | A3    | false    | true   | Assignment 3 |
 
 
   Scenario Outline: Update an assignment description (Normal Flow)
@@ -19,8 +19,8 @@ Feature: Update an assignment description
     Then the project with id "<id>" has description "<description>"
 
     Examples:
-      | id  | title | complete | active | description        |
-      | 100 | "A1"  | false    | true   | "New Assignment 1" |
+      | id  | title | complete | active | description      |
+      | 100 | A1    | false    | true   | New Assignment 1 |
 
 
   Scenario Outline: Add an assignment with valid input then edit the assignment description (Alternate Flow)
@@ -30,8 +30,8 @@ Feature: Update an assignment description
     And a student edits a project with id "<id>"
     Then the project with id "<id>" has description "<description>"
     Examples:
-      | id  | title | complete | active | description        |
-      | 103 | "A4"  | false    | true   | "New Assignment 4" |
+      | id  | title | complete | active | description      |
+      | 103 | A4    | false    | true   | New Assignment 4 |
 
 
   Scenario Outline: Update an assignment description with invalid id (Error Flow)
@@ -40,6 +40,6 @@ Feature: Update an assignment description
     Then the system reports an error message
 
     Examples:
-      | id | title | complete | active | description    |
-      | 0  | "A3"  | false    | true   | "Assignment 3" |
+      | id | title | complete | active | description  |
+      | 0  | A3    | false    | true   | Assignment 3 |
 
