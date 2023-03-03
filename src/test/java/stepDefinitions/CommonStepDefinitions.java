@@ -5,6 +5,7 @@ import java.io.IOException;
 import io.cucumber.java.en.Given;
 
 public class CommonStepDefinitions {
+  public static final String BASE_URL = "http://localhost:4567/";
 
   private Process runTodoManagerRestApi;
 

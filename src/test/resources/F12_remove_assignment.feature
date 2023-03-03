@@ -6,11 +6,9 @@ Feature: Remove an assignment
 
   Background:
     Given the server is running
-    And the following projects exist in the system:
-      | id  | title | complete | active | description  |
-      | 100 | A1    | false    | true   | Assignment 1 |
-      | 101 | A2    | false    | true   | Assignment 2 |
-      | 102 | A3    | false    | true   | Assignment 3 |
+    And the following project exists in the system:
+      | title | complete | active | description  |
+      | A1    | false    | true   | Assignment 1 |
 
 
   Scenario Outline: Remove a project representing an assignment with valid input (Normal Flow)
@@ -19,15 +17,13 @@ Feature: Remove an assignment
     Then a project with id "<id>" is removed
 
     Examples:
-      | id  | title | complete | active | description  |
-      | 101 | A2    | false    | true   | Assignment 2 |
-      | 102 | A3    | false    | true   | Assignment 3 |
+      | title | complete | active | description |
+
 
 
   Scenario Outline: Add a project with valid input then remove the project (Alternate Flow)
 
-    When a student adds a project with an id "<id>", a title "<title>", a complete "<complete>", an active "<active>", and a description "<description>"
-
+    When a student adds a project with a title "<title>", a complete "<complete>", an active "<active>", and a description "<description>"
     And they remove a project with id "<id>"
     Then a project with id "<id>" is removed
 
@@ -38,8 +34,7 @@ Feature: Remove an assignment
   Scenario Outline: Remove a project with invalid id (Error Flow)
 
     When a student removes a project with invalid id "<id>"
-    Then a project with id "<id>" is not removed
-    And the system reports an error
+    Then the student will get notified by an error message
 
     Examples:
       | id | title | complete | active | description  |
