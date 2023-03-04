@@ -15,7 +15,7 @@ Feature: Update an assignment complete status
 
   Scenario Outline: Update an assignment complete status (Normal Flow)
 
-    When a student edits a project description with id "<id>" and complete status "<complete>"
+    When a student edits a project status with id "<id>" and complete status "<complete>"
     Then the project with id "<id>" has complete status "<complete>"
 
     Examples:
@@ -25,9 +25,9 @@ Feature: Update an assignment complete status
 
   Scenario Outline: Add an assignment with valid input then edit the assignment complete status (Alternate Flow)
 
-    When a student adds a project with id "<id>", title "<title>", complete "<complete>", active "<active>", and description "<description>"
+    When a student adds a project with title "<title>", complete "<complete>", active "<active>", and description "<description>"
 
-    And a student edits a project complete status "<complete>" with id "<id>"
+    And a student edits a project status with id "<id>" and complete status "<complete>"
     Then the project with id "<id>" has complete status "<complete>"
     Examples:
       | id  | title | complete | active | description      |
@@ -36,8 +36,8 @@ Feature: Update an assignment complete status
 
   Scenario Outline: Update an assignment description with complete status (Error Flow)
 
-    When a student edits a project description with id "<id>" and invalid complete status "<complete>"
-    Then the system reports an error message
+    When a student edits a project complete status with id "<id>" and invalid complete status "<complete>"
+    Then the student will get notified by an error message
 
     Examples:
       | id  | title | complete | active | description  |

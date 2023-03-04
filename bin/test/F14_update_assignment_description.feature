@@ -25,19 +25,19 @@ Feature: Update an assignment description
 
   Scenario Outline: Add an assignment with valid input then edit the assignment description (Alternate Flow)
 
-    When a student adds a project with id "<id>", title "<title>", complete "<complete>", active "<active>", and description "<description>"
+    When a student adds a project with a title "<title>", a complete "<complete>", an active "<active>", and a description "<description>"
+    And a student edits a project description with id and description "<description>"
+    Then the project with id has description "<description>"
 
-    And a student edits a project with id "<id>"
-    Then the project with id "<id>" has description "<description>"
     Examples:
-      | id  | title | complete | active | description      |
-      | 103 | A4    | false    | true   | New Assignment 4 |
+      | title | complete | active | description      |
+      | A4    | false    | true   | New Assignment 4 |
 
 
   Scenario Outline: Update an assignment description with invalid id (Error Flow)
 
-    When a student edits a project description with invalid id "<id>" and description "<description>"
-    Then the system reports an error message
+    When a student edits a project description with invalid id 0 and description "<description>"
+    Then the student will get notified by an error message
 
     Examples:
       | id | title | complete | active | description  |

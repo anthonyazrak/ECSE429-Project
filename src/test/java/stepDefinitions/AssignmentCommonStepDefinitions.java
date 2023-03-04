@@ -92,4 +92,18 @@ public class AssignmentCommonStepDefinitions {
     assertNotNull(response.body());
   }
 
+  @Then("the project with id {string} has description {string}")
+  public void thenEditProjectDescription(String id, String description) throws Exception {
+
+    assertTrue(response.body().contains(id));
+    assertTrue(response.body().contains(description));
+  }
+
+  @Then("the project with id has description {string}")
+  public void thenEditProjectDescription(String description) throws Exception {
+
+    assertTrue(response.body().contains(Integer.toString(givenId)));
+    assertTrue(response.body().contains(description));
+  }
+
 }
