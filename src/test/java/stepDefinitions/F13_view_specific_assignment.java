@@ -34,8 +34,6 @@ public class F13_view_specific_assignment {
     HttpResponse<String> response = AssignmentCommonStepDefinitions.getResponse();
 
     assertEquals(200, response.statusCode());
-    ObjectMapper mapper = new ObjectMapper();
-    JsonNode root = mapper.readTree(response.body());
     assertTrue(response.body().contains(title));
     assertTrue(response.body().contains(complete));
     assertTrue(response.body().contains(active));
