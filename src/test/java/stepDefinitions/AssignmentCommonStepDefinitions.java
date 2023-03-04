@@ -1,7 +1,5 @@
 package stepDefinitions;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,7 +14,6 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -104,6 +101,20 @@ public class AssignmentCommonStepDefinitions {
 
     assertTrue(response.body().contains(Integer.toString(givenId)));
     assertTrue(response.body().contains(description));
+  }
+
+  @Then("the project with id {string} has complete status {string}")
+  public void thenEditProjectCompleteStatus(String id, String complete) throws Exception {
+
+    assertTrue(response.body().contains(id));
+    assertTrue(response.body().contains(complete));
+  }
+
+  @Then("the project with id has complete status {string}")
+  public void thenEditProjectCompleteStatus(String complete) throws Exception {
+
+    assertTrue(response.body().contains(Integer.toString(givenId)));
+    assertTrue(response.body().contains(complete));
   }
 
 }
