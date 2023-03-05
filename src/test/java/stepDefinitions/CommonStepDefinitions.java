@@ -2,9 +2,15 @@ package stepDefinitions;
 
 import java.io.IOException;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 
 public class CommonStepDefinitions {
+
+  @Before
+  public void beforeScenario() {
+    System.out.println("cucumber.options: " + System.getProperty("cucumber.options"));
+  }
 
   private Process runTodoManagerRestApi;
 
