@@ -1,42 +1,44 @@
-Feature: Update a todo item title
+Feature: Update an due date description
 
     As a student
-    I want to update the title of the todo item so that
-    I can fix any types or make the title more representative of the task.
+    I want to be able to update my due date description
+    so that I can make changes in case the professor edits it.
 
     Background:
         Given the server is running
-        And the following todo items exist in the system:
-            | id | title       | description                 | doneStatus |
-            | 1  | "3/05/2023" | "finish COMP202 assignment" | false      |
-            | 2  | "4/15/2023" | "finish COMP303 assignment" | false      |
-            | 3  | "3/05/2023" | "finish COMP204 assignment" | false      |
+        And the following todo item exists in the system:
+            | id   | title      | complete | active | description |
+            | 1000 | 10/01/2023 | false    | true   | Due date 1  |
+            | 1001 | 11/01/2023 | false    | true   | Due date 2  |
+            | 1002 | 12/01/2023 | false    | true   | Due date 3  |
 
-    Scenario Outline: Update a todo item title (Normal Flow)
 
-        When a student edits a todo item title with id "<id>" and title "<title>"
-        Then the todo item with id "<id>" has title "<title>"
+    Scenario Outline: Update an due date description (Normal Flow)
 
-        Examples:
-            | id | title       | description                                            | doneStatus |
-            | 1  | "3/05/2023" | "finish the first 2 numbers of the COMP202 assignment" | false      |
-
-    Scenario Outline: Add a todo item with valid input then edit the todo item title (Alternate Flow
-
-        When a student adds a todo item with id "<id>" and title "<title>"
-
-        And a student edits a todo item with id "<id>"
-        Then the todo item with id "<id>" has title "<title>"
+        When a student edits a todo item description with id "<id>" and description "<description>"
+        Then the todo item with id "<id>" has description "<description>"
 
         Examples:
-            | id | title       | description                 | doneStatus |
-            | 4  | "7/02/2023" | "finish COMP206 assignment" | false      |
+            | id   | title      | complete | active | description |
+            | 1000 | 10/01/2023 | false    | true   | Due date 1  |
 
-    Scenario Outline: Update a todo item title with invalid input (Error Flow)
 
-        When a student edits a todo item title with invalid id "<id>" and title "<title>"
-        Then the system reports an error message
+    Scenario Outline: Add an due date with valid input then edit the due date description (Alternate Flow)
+
+        When a student adds a todo item with a title "<title>", a complete "<complete>", an active "<active>", and a description "<description>"
+        And a student edits a todo item description with id and description "<description>"
+        Then the todo item with id has description "<description>"
 
         Examples:
-            | id | title       | description                 | doneStatus |
-            | 1  | "3/05/2023" | "finish COMP202 assignment" | false      |
+            | title      | complete | active | description |
+            | 13/01/2023 | false    | true   | Due date 4  |
+
+
+    Scenario Outline: Update an due date description with invalid id (Error Flow)
+
+        When a student edits a todo item description with invalid id 0 and description "<description>"
+        Then the student will get notified by an error message
+
+        Examples:
+            | id | title      | complete | active | description |
+            | 0  | 12/01/2023 | false    | true   | Due date 3  |

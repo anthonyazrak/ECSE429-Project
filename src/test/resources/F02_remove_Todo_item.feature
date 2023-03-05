@@ -1,15 +1,15 @@
-Feature: Remove a todo item
+Feature: Remove an due date
 
     As a student
-    I want to remove a todo entry so that completed
-    tasks are not tracked by the application.
+    I want to remove a due date assigned to a todo item
+    so that due dates I no longer have to do are not tracked by the application.
 
     Background:
         Given the server is running
-        And the following todo items exist:
-            | id | title       | description                 | doneStatus |
-            | 1  | "3/05/2023" | "finish COMP202 assignment" | false      |
-            | 2  | "3/05/2023" | "finish COMP203 assignment" | false      |
+        And the following todo item exists in the system:
+            | title      | complete | active | description |
+            | 10/01/2023 | false    | true   | Due date 1  |
+
 
     Scenario Outline: Remove a todo item representing a due date with valid input (Normal Flow)
 
@@ -17,25 +17,25 @@ Feature: Remove a todo item
         Then a todo item with id "<id>" is removed
 
         Examples:
-            | id | title       | description                 | doneStatus |
-            | 2  | "3/05/2023" | "finish COMP203 assignment" | false      |
+            | title | complete | active | description |
 
 
-    Scenario Outline: Add a todo item with valid input then remove the todo item (Alternative Flow)
 
-        When a student adds a todo item with an id of "<id>" and description of "<description>" and completed of "<completed>"
+    Scenario Outline: Add a todo item with valid input then remove the todo item (Alternate Flow)
 
-        And a student removes a todo item with id "<id>"
-        Then a todo item with id "<id>" is removed
+        When a student adds a todo item with a title "<title>", a complete "<complete>", an active "<active>", and a description "<description>"
+        And they remove a todo item with id "<id>"
+        Then a todo item with id is removed
 
         Examples:
-            | id | title | description | doneStatus |
+            | title | complete | active | description |
 
-    Scenario Outline: Remove a project with invalid id (Error Flow)
+
+    Scenario Outline: Remove a todo item with invalid id (Error Flow)
 
         When a student removes a todo item with invalid id "<id>"
-        Then a todo item with id "<id>" is not removed
-        And the system reports an error
+        Then the student will get notified by an error message
 
-            | id | title       | description                 | doneStatus |
-            | 1  | "3/05/2023" | "finish COMP202 assignment" | false      |
+        Examples:
+            | id | title      | complete | active | description |
+            | 0  | 13/01/2023 | false    | true   | Due date 4  |

@@ -1,42 +1,42 @@
-Feature: View a specific todo item by id
+Feature: View a specific due date by id
 
     As a student
-    I want to see all todo list items that are assigned
-    to a specific due date
+    I want to see a specific due date assigned to a todo item
+    so that I can view its details and description
 
     Background:
         Given the server is running
-        And the following todo items exist
-            | id | title       | description                 | doneStatus |
-            | 1  | "3/05/2023" | "finish COMP202 assignment" | false      |
-            | 2  | "4/15/2023" | "finish COMP303 assignment" | false      |
-            | 3  | "3/05/2023" | "finish COMP204 assignment" | false      |
-
-    Scenario Outline: View a specific todo item (Normal FLow)
-
-        When a student views a todo item with id "<id>"
-        Then the student should see the todo item with id "<id>"
-
-            | id | title       | description                 | doneStatus |
-            | 1  | "3/05/2023" | "finish COMP202 assignment" | false      |
+        And the following todo item exists in the system:
+            | title      | complete | active | description |
+            | 10/01/2023 | false    | true   | Due date 1  |
+            | 11/01/2023 | false    | true   | Due date 2  |
+            | 12/01/2023 | false    | true   | Due date 3  |
 
 
-    Scenario Outline: Add a todo item with valid input then view the todo item (Alternative Flow)
+    Scenario Outline: View a specific due date (Normal Flow)
 
-        When a student adds a todo item with id "<id>", title "<title>", description "<description>", completed "<completed>"
-
-        And a student views a todo item with id "<id>"
-        Then the system displays a todo item with id "<id>", title "<title>", description "<description>", completed "<completed>"
+        When a student views a todo item with id
+        Then the system displays a todo item with title "<title>", complete "<complete>", active "<active>", and description "<description>"
 
         Examples:
-            | id | title       | description                 | doneStatus |
-            | 4  | "6/12/2023" | "finish ECSE429 assignment" | false      |
+            | title      | complete | active | description |
+            | 12/01/2023 | false    | true   | Due date 3  |
 
-    Scenario Outline: View a todo item with invalid id (Error Flow)
 
-        When a student views a todo item with invalid id "<id>"
-        Then the system displays an error message
+    Scenario Outline: Add an due date with valid input then view the due date (Alternate Flow)
+
+        When a student adds a todo item with a title "<title>", a complete "<complete>", an active "<active>", and a description "<description>"
+        And a student views a todo item with id
+        Then the system displays a todo item with title "<title>", complete "<complete>", active "<active>", and description "<description>"
+        Examples:
+            | title      | complete | active | description |
+            | 13/01/2023 | false    | true   | Due date 4  |
+
+    Scenario Outline: View a due date with invalid id (Error Flow)
+
+        When a student views a todo item with invalid id 0
+        Then the student will get notified by an error message
 
         Examples:
-            | id | title       | description                 | doneStatus |
-            | 0  | "6/12/2023" | "finish ECSE429 assignment" | false      |
+            | id | title      | complete | active | description |
+            | 0  | 13/01/2023 | false    | true   | Due date 4  |
