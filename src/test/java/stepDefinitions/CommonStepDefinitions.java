@@ -2,7 +2,7 @@ package stepDefinitions;
 
 import java.io.IOException;
 
-import io.cucumber.java.Before;
+import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 
 public class CommonStepDefinitions {
@@ -22,6 +22,12 @@ public class CommonStepDefinitions {
       System.out.println(i);
       Thread.sleep(100);
     }
+  }
+
+  @After
+  public void tearDownScenario() throws InterruptedException {
+    runTodoManagerRestApi.destroy();
+    Thread.sleep(100);
   }
 
 }
