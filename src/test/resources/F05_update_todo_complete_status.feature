@@ -20,17 +20,17 @@ Feature: Update a due date doneStatus
 
         Examples:
             | id | title      | doneStatus | description |
-            | 1  | 10/01/2023 | false      | Due date 1  |
+            | 1  | 10/01/2023 | true       | Due date 1  |
 
 
     Scenario Outline: Add an due date with valid input then edit the due date doneStatus (Alternate Flow)
 
         When a student adds a todo item with a title "<title>", a doneStatus "<doneStatus>", and a description "<description>"
         And a student edits a todo item status with id and doneStatus "<doneStatus>"
-        Then the todo item with id "<id>" has doneStatus "<doneStatus>"
+        Then the todo item with id has doneStatus "<doneStatus>"
         Examples:
-            | title      | complete | active | description |
-            | 13/01/2023 | false    | true   | Due date 4  |
+            | title      | doneStatus | description |
+            | 13/01/2023 | false      | Due date 4  |
 
 
     Scenario Outline: Update a due date description with doneStatus (Error Flow)

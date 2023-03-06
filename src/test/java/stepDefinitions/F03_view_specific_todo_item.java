@@ -26,7 +26,7 @@ public class F03_view_specific_todo_item {
         TodoCommonStepDefinitions.setResponse(response);
     }
 
-    @Then("the system displays a todo item with title {string}, a doneStatus {string}, and description {string}")
+    @Then("the system displays a todo item with title {string}, a doneStatus {string}, and a description {string}")
     public void thenDisplayTodo(String title, String doneStatus, String description) throws Exception {
         HttpResponse<String> response = TodoCommonStepDefinitions.getResponse();
 
