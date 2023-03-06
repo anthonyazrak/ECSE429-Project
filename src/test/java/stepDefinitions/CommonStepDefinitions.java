@@ -7,11 +7,6 @@ import io.cucumber.java.en.Given;
 
 public class CommonStepDefinitions {
 
-  @Before
-  public void beforeScenario() {
-    System.out.println("cucumber.options: " + System.getProperty("cucumber.options"));
-  }
-
   private Process runTodoManagerRestApi;
 
   @Given("the server is running")

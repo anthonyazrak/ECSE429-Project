@@ -20,7 +20,7 @@ Feature: Update a due date doneStatus
 
         Examples:
             | id | title      | doneStatus | description |
-            | 1  | 10/01/2023 | true       | Due date 1  |
+            | 1  | 12/01/2023 | true       | Due date 1  |
 
 
     Scenario Outline: Add an due date with valid input then edit the due date doneStatus (Alternate Flow)

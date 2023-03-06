@@ -14,13 +14,15 @@ public class F05_update_todo_complete_status {
         public void whenEditTodoStatus(String id, String doneStatus) throws Exception {
                 HttpClient client = HttpClient.newHttpClient();
                 HttpRequest request = HttpRequest.newBuilder()
-                                .uri(URI.create(BASE_URL + "todos/" + id))
+                                .uri(URI.create(BASE_URL + "todos/" + String.format("%s", id)))
                                 .header("Content-Type", "application/json")
-                                .PUT(HttpRequest.BodyPublishers.ofString(
+                                .POST(HttpRequest.BodyPublishers.ofString(
                                                 "{\"doneStatus\": " + doneStatus + "}"))
                                 .build();
                 HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
                 TodoCommonStepDefinitions.setResponse(response);
+                System.out.println(response);
+
         }
 
         @When("a student edits a todo item status with id and doneStatus {string}")
@@ -29,7 +31,7 @@ public class F05_update_todo_complete_status {
                 HttpRequest request = HttpRequest.newBuilder()
                                 .uri(URI.create(BASE_URL + "todos/" + TodoCommonStepDefinitions.getGivenId()))
                                 .header("Content-Type", "application/json")
-                                .PUT(HttpRequest.BodyPublishers.ofString(
+                                .POST(HttpRequest.BodyPublishers.ofString(
                                                 "{\"doneStatus\": " + doneStatus + "}"))
                                 .build();
                 HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
@@ -42,8 +44,8 @@ public class F05_update_todo_complete_status {
                 HttpRequest request = HttpRequest.newBuilder()
                                 .uri(URI.create(BASE_URL + "todos/" + id))
                                 .header("Content-Type", "application/json")
-                                .PUT(HttpRequest.BodyPublishers.ofString(
-                                                "{\"doneStatus\": " + doneStatus + "}"))
+                                .POST(HttpRequest.BodyPublishers.ofString(
+                                                "{\"doneStatus\": \"" + doneStatus + "\"}"))
                                 .build();
                 HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
                 TodoCommonStepDefinitions.setResponse(response);
