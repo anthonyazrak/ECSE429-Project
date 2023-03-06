@@ -21,7 +21,6 @@ public class F05_update_todo_complete_status {
                                 .build();
                 HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
                 TodoCommonStepDefinitions.setResponse(response);
-                System.out.println(response);
 
         }
 
