@@ -37,14 +37,13 @@ public class TodoCommonStepDefinitions {
     return response;
   }
 
-  @When("a student adds a todo item with a title {string}, a complete {string}, an active {string}, and a description {string}")
-  public void whenAddTodo(String title, String complete, String active, String description) throws Exception {
+  @When("a student adds a todo item with a title {string}, a doneStatus {string}, and a description {string}")
+  public void whenAddTodo(String title, String doneStatus, String description) throws Exception {
     HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(BASE_URL + "todos"))
         .header("Content-Type", "application/json")
         .POST(HttpRequest.BodyPublishers.ofString(
-            "{\"title\": \"" + title
-                + "\", \"completed\": " + complete + ", \"active\": " + active
+            "{\"title\": \"" + title + "\", \"doneStatus\": " + doneStatus
                 + ", \"description\": \"" + description + "\"}"))
         .build();
 
@@ -60,16 +59,14 @@ public class TodoCommonStepDefinitions {
     List<Map<String, String>> rows = dataTable.asMaps();
     for (var row : rows) {
       String title = row.get("title");
-      String complete = row.get("complete");
-      String active = row.get("active");
+      String doneStatus = row.get("doneStatus");
       String description = row.get("description");
 
       HttpRequest request = HttpRequest.newBuilder()
           .uri(URI.create(BASE_URL + "todos"))
           .header("Content-Type", "application/json")
           .POST(HttpRequest.BodyPublishers.ofString(
-              "{\"title\": \"" + title
-                  + "\", \"completed\": " + complete + ", \"active\": " + active
+              "{\"title\": \"" + title + "\", \"doneStatus\": " + doneStatus
                   + ", \"description\": \"" + description + "\"}"))
           .build();
       HttpClient client = HttpClient.newHttpClient();
@@ -79,8 +76,6 @@ public class TodoCommonStepDefinitions {
       givenId = jsonNode.get("id").asInt();
 
     }
-
-    assertNotNull(response.body());
   }
 
   @Then("the todo item with id {string} has description {string}")
@@ -97,18 +92,18 @@ public class TodoCommonStepDefinitions {
     assertTrue(response.body().contains(description));
   }
 
-  @Then("the todo item with id {string} has complete status {string}")
-  public void thenEditTodoCompleteStatus(String id, String complete) throws Exception {
+  @Then("the todo item with id {string} has doneStatus {string}")
+  public void thenEditTodoCompleteStatus(String id, String doneStatus) throws Exception {
 
     assertTrue(response.body().contains(id));
-    assertTrue(response.body().contains(complete));
+    assertTrue(response.body().contains(doneStatus));
   }
 
-  @Then("the todo item with id has complete status {string}")
-  public void thenEditCompleteStatus(String complete) throws Exception {
+  @Then("the todo item with id has doneStatus {string}")
+  public void thenEditCompleteStatus(String doneStatus) throws Exception {
 
     assertTrue(response.body().contains(Integer.toString(givenId)));
-    assertTrue(response.body().contains(complete));
+    assertTrue(response.body().contains(doneStatus));
   }
 
 }

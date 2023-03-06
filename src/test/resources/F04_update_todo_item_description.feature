@@ -7,10 +7,10 @@ Feature: Update an due date description
     Background:
         Given the server is running
         And the following todo item exists in the system:
-            | id | title      | complete | active | description |
-            | 1  | 10/01/2023 | false    | true   | Due date 1  |
-            | 2  | 11/01/2023 | false    | true   | Due date 2  |
-            | 3  | 12/01/2023 | false    | true   | Due date 3  |
+            | id | title      | doneStatus | description |
+            | 1  | 10/01/2023 | true       | Due date 1  |
+            | 2  | 11/01/2023 | true       | Due date 2  |
+            | 3  | 12/01/2023 | true       | Due date 3  |
 
 
     Scenario Outline: Update an due date description (Normal Flow)
@@ -19,19 +19,19 @@ Feature: Update an due date description
         Then the todo item with id "<id>" has description "<description>"
 
         Examples:
-            | id | title      | complete | active | description |
-            | 1  | 10/01/2023 | false    | true   | Due date 1  |
+            | id | title      | doneStatus | description |
+            | 1  | 10/01/2023 | true       | Due date 1  |
 
 
     Scenario Outline: Add an due date with valid input then edit the due date description (Alternate Flow)
 
-        When a student adds a todo item with a title "<title>", a complete "<complete>", an active "<active>", and a description "<description>"
+        When a student adds a todo item with a title "<title>", a doneStatus "<doneStatus>", and a description "<description>"
         And a student edits a todo item description with id and description "<description>"
         Then the todo item with id has description "<description>"
 
         Examples:
-            | title      | complete | active | description |
-            | 13/01/2023 | false    | true   | Due date 4  |
+            | title      | doneStatus | description |
+            | 13/01/2023 | true       | Due date 4  |
 
 
     Scenario Outline: Update an due date description with invalid id (Error Flow)
@@ -40,5 +40,5 @@ Feature: Update an due date description
         Then the student will get notified by an error message
 
         Examples:
-            | id | title      | complete | active | description |
-            | 0  | 12/01/2023 | false    | true   | Due date 3  |
+            | id | title      | doneStatus | description |
+            | 0  | 12/01/2023 | false      | Due date 3  |

@@ -7,8 +7,8 @@ Feature: Remove an due date
     Background:
         Given the server is running
         And the following todo item exists in the system:
-            | title      | complete | active | description |
-            | 10/01/2023 | false    | true   | Due date 1  |
+            | title      | doneStatus | description |
+            | 10/01/2023 | false      | Due date 1  |
 
 
     Scenario Outline: Remove a todo item representing a due date with valid input (Normal Flow)
@@ -17,18 +17,18 @@ Feature: Remove an due date
         Then a todo item with id "<id>" is removed
 
         Examples:
-            | title | complete | active | description |
+            | title | doneStatus | description |
 
 
 
     Scenario Outline: Add a todo item with valid input then remove the todo item (Alternate Flow)
 
-        When a student adds a todo item with a title "<title>", a complete "<complete>", an active "<active>", and a description "<description>"
+        When a student adds a todo item with a title "<title>", a doneStatus "<doneStatus>", and a description "<description>"
         And they remove a todo item with id "<id>"
         Then a todo item with id is removed
 
         Examples:
-            | title | complete | active | description |
+            | title | doneStatus | description |
 
 
     Scenario Outline: Remove a todo item with invalid id (Error Flow)
@@ -37,5 +37,5 @@ Feature: Remove an due date
         Then the student will get notified by an error message
 
         Examples:
-            | id | title      | complete | active | description |
-            | 0  | 13/01/2023 | false    | true   | Due date 4  |
+            | id | title      | doneStatus | description |
+            | 0  | 13/01/2023 | false      | Due date 4  |

@@ -20,8 +20,8 @@ public class F01_add_Todo_item {
 
   // When in TodoCommonStepDefinitions.java:
 
-  @Then("a todo item with a title {string}, a complete {string}, an active {string}, and a description {string} is added")
-  public void thenAddTodo(String title, String complete, String active, String description) throws Exception {
+  @Then("a todo item with a title {string}, a doneStatus {string}, and a description {string} is added")
+  public void thenAddTodo(String title, String doneStatus, String description) throws Exception {
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(BASE_URL + "todos"))
@@ -33,13 +33,12 @@ public class F01_add_Todo_item {
 
     assertEquals(200, response.statusCode());
     assertTrue(response.body().contains(title));
-    assertTrue(response.body().contains(complete));
-    assertTrue(response.body().contains(active));
+    assertTrue(response.body().contains(doneStatus));
     assertTrue(response.body().contains(description));
 
   }
 
-  @When("a student removes a todo with id")
+  @When("a student removes a todo item with id")
   public void whenRemoveTodo() throws Exception {
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
@@ -53,17 +52,16 @@ public class F01_add_Todo_item {
 
   }
 
-  @When("a student adds a todo item with a title {string}, an invalid complete {string}, an active {string}, and a description {string}")
+  @When("a student adds a todo item with a title {string}, an invalid doneStatus {string}, and a description {string}")
   public void whenAddTodoInvalid(String title,
-      String complete, String active, String description) throws Exception {
+      String doneStatus, String description) throws Exception {
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(BASE_URL + "todos"))
         .header("Content-Type", "application/json")
         .POST(HttpRequest.BodyPublishers.ofString(
             "{\"title\": \"" + title
-                + "\", \"completed\": " + complete + ", \"active\": " + active
-                + ", \"description\": \"" + description + "\"}"))
+                + "\", \"doneStatus\": \"" + doneStatus + "\", \"description\": \"" + description + "\"}"))
         .build();
 
     HttpResponse<String> response = client.send(request, BodyHandlers.ofString());

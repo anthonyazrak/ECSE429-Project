@@ -9,35 +9,35 @@ Feature: Create a todo item
 
     Scenario Outline: Add a todo item with valid input to represent a due date (Normal Flow)
 
-        When a student adds a todo item with a title "<title>", a complete "<complete>", an active "<active>", and a description "<description>"
-        Then a todo item with a title "<title>", a complete "<complete>", an active "<active>", and a description "<description>" is added
+        When a student adds a todo item with a title "<title>", a doneStatus "<doneStatus>", and a description "<description>"
+        Then a todo item with a title "<title>", a doneStatus "<doneStatus>", and a description "<description>" is added
 
         Examples:
-            | title      | complete | active | description |
-            | 10/01/2023 | false    | true   | Due date 1  |
-            | 11/01/2023 | false    | true   | Due date 2  |
-            | 12/01/2023 | false    | true   | Due date 3  |
+            | title      | doneStatus | description |
+            | 10/01/2023 | false      | Due date 1  |
+            | 11/01/2023 | false      | Due date 2  |
+            | 12/01/2023 | false      | Due date 3  |
 
     Scenario Outline: Remove a todo item then add a todo item with valid input to represent a due date (Alternate Flow)
 
         Given the following todo item exists in the system:
-            | title      | complete | active | description |
-            | 10/01/2023 | false    | true   | Due date 1  |
+            | title      | doneStatus | description |
+            | 10/01/2023 | false      | Due date 1  |
 
         When a student removes a todo item with id
-        And a student adds a todo item with a title "<title>", a complete "<complete>", an active "<active>", and a description "<description>"
-        Then a todo item with a title "<title>", a complete "<complete>", an active "<active>", and a description "<description>" is added
+        And a student adds a todo item with a title "<title>", a doneStatus "<doneStatus>", and a description "<description>"
+        Then a todo item with a title "<title>", a doneStatus "<doneStatus>", and a description "<description>" is added
 
         Examples:
-            | title      | complete | active | description |
-            | 11/01/2023 | false    | true   | Due date 2  |
+            | title      | doneStatus | description |
+            | 11/01/2023 | false      | Due date 2  |
 
     Scenario Outline: Add a todo item with invalid completed input to represent a due date (Error Flow)
 
-        When a student adds a todo item with a title "<title>", an invalid complete "<complete>", an active "<active>", and a description "<description>"
+        When a student adds a todo item with a title "<title>", an invalid doneStatus "<doneStatus>", and a description "<description>"
         Then the todo item will not be added
         And the student will get notified by an error message
 
         Examples:
-            | title      | complete | active | description  |
-            | 13/01/2023 | bad      | true   | Assignment 1 |
+            | title      | doneStatus | description       |
+            | 13/01/2023 | bad        | true Assignment 1 |

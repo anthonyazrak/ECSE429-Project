@@ -26,14 +26,13 @@ public class F03_view_specific_todo_item {
         TodoCommonStepDefinitions.setResponse(response);
     }
 
-    @Then("the system displays a todo item with title {string}, complete {string}, active {string}, and description {string}")
-    public void thenDisplayTodo(String title, String complete, String active, String description) throws Exception {
+    @Then("the system displays a todo item with title {string}, a doneStatus {string}, and description {string}")
+    public void thenDisplayTodo(String title, String doneStatus, String description) throws Exception {
         HttpResponse<String> response = TodoCommonStepDefinitions.getResponse();
 
         assertEquals(200, response.statusCode());
         assertTrue(response.body().contains(title));
-        assertTrue(response.body().contains(complete));
-        assertTrue(response.body().contains(active));
+        assertTrue(response.body().contains(doneStatus));
         assertTrue(response.body().contains(description));
 
     }
